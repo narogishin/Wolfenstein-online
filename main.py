@@ -24,7 +24,7 @@ class Game:
 
   def check_event(self):
     for event in pg.event.get():
-      if event.type == pg.QUIT or (event.type == pg.KEYDOWN and event.type == pg.K_ESCAPE):
+      if event.type == pg.QUIT or event.type == pg.KEYDOWN:
         pg.quit()
         sys.exit()
 
