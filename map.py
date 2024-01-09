@@ -25,8 +25,8 @@ class Map:
     for i, row in enumerate(self.mini_map):
       for j, value in enumerate(row):
         if value:
-          self.world_map[(i, j)] = value
+          self.world_map[(j, i)] = value
 
   def draw(self):
-    [pg.draw.rect(self.game.screen, 'darkgray', (pos[1]*100*RATIO, pos[0]*100*RATIO, 100*RATIO, 100*RATIO), 1) 
+    [pg.draw.rect(self.game.screen, 'darkgray', (pos[0]*100*RATIO, pos[1]*100*RATIO, 100*RATIO, 100*RATIO), 2) 
      for pos in self.world_map]

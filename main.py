@@ -28,10 +28,11 @@ class Game:
     self.player.draw()
 
   def check_event(self):
-    for event in pg.event.get():
-      if event.type == pg.QUIT:
-        pg.quit()
-        sys.exit()
+    keys = pg.key.get_pressed()
+    # for event in pg.event.get():
+    if keys[pg.K_ESCAPE]: # or event.type == pg.QUIT:
+      pg.quit()
+      sys.exit()
 
   def run(self):
     while True:

@@ -13,7 +13,9 @@ class Player:
     cos_a = math.cos(self.angle)
     dx, dy = 0, 0
 
-    # if we want the player's mouvement speed to be independent to the frame rate then we need to get the delta time for each frame
+    # if we want the player's mouvement speed to be independent 
+    # to the frame rate then we need to get the delta time for each frame
+    # hence the "dt" term from clock tick
     mvt = PLAYER_SPEED*self.game.dt
     mvt_sin = mvt*sin_a
     mvt_cos = mvt*cos_a
@@ -32,8 +34,7 @@ class Player:
       dx += -mvt_sin
       dy += mvt_cos
 
-    self.x += dx
-    self.y += dy
+    self.check_wall_collision(dx, dy)
 
     if keys[pg.K_LEFT]:
       self.angle -= PLAYER_ROT_SPEED*self.game.dt
@@ -41,6 +42,15 @@ class Player:
       self.angle += PLAYER_ROT_SPEED*self.game.dt
 
     self.angle %= 2*math.pi
+
+  def check_wall(self, x, y):
+    return (x, y) not in self.game.map.world_map
+  
+  def check_wall_collision(self, dx, dy):
+    if self.check_wall(int(self.x+dx), int(self.y)):
+      self.x += dx
+    if self.check_wall(int(self.x), int(self.y+dy)):
+      self.y += dy
 
   def draw(self):
     pg.draw.line(self.game.screen, 'yellow', (self.x*100, self.y*100),
