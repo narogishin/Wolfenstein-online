@@ -29,10 +29,10 @@ class Game:
 
   def check_event(self):
     keys = pg.key.get_pressed()
-    # for event in pg.event.get():
-    if keys[pg.K_ESCAPE]: # or event.type == pg.QUIT:
-      pg.quit()
-      sys.exit()
+    for event in pg.event.get():
+      if event.type == pg.QUIT or keys[pg.K_ESCAPE]:
+        pg.quit()
+        sys.exit()
 
   def run(self):
     while True:
