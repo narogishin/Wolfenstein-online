@@ -3,6 +3,7 @@ import sys
 from settings import RESOLUTION, FPS
 from map import Map
 from player import Player
+from ray_casting import RayCasting
 
 class Game:
   def __init__(self) -> None:
@@ -15,9 +16,11 @@ class Game:
   def new_game(self):
    self.map = Map(self)
    self.player = Player(self)
+   self.ray_cast = RayCasting(self)
 
   def update(self):
     self.player.update()
+    self.ray_cast.update()
     pg.display.flip()
     self.dt = self.clock.tick(FPS)
     pg.display.set_caption(f'{self.clock.get_fps() :.1f}')
