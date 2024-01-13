@@ -21,3 +21,6 @@ MAX_DEPTH = 20
 # Constant value, In Wolfenstein game they used the one that's easy to multipliy by only using the shifts
 SCREEN_DISTANCE = HALF_WIDTH / math.tan(HALF_FOV) 
 SCALE = WIDTH // NUM_RAYS
+
+TEXTURE_SIZE = 256
+HALF_TEXTURE_SIZE = TEXTURE_SIZE // 2
