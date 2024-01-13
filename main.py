@@ -27,8 +27,8 @@ class Game:
 
   def draw(self):
     self.screen.fill('black')
-    self.map.draw()
-    self.player.draw()
+    # self.map.draw()
+    # self.player.draw() it's a moon now
 
   def check_event(self):
     keys = pg.key.get_pressed()

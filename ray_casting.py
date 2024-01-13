@@ -61,9 +61,13 @@ class RayCasting:
       depth_vert = self.vertical_ray_cast(sin_a, cos_a, ox, oy, x_map)
 
       depth = depth_vert if depth_vert < depth_hor else depth_hor
+      
+      projected_height = 1 * SCREEN_DISTANCE / (depth * math.cos(self.game.player.angle - ray_angle) + 0.0001)
 
-      pg.draw.line(self.game.screen, 'yellow', (ox*100, oy*100), 
-                   (100*ox + 100*depth*cos_a, 100*oy + 100*depth*sin_a), 2)
+      # pg.draw.line(self.game.screen, 'yellow', (ox*100, oy*100), 
+      #              (100*ox + 100*depth*cos_a, 100*oy + 100*depth*sin_a), 2)
+
+      pg.draw.rect(self.game.screen, 'white', (ray * SCALE, HALF_HEIGHT - projected_height // 2, SCALE, projected_height))
 
       ray_angle+=DELTA_ANGLE
 

@@ -3,6 +3,7 @@ import math
 # Game Settings
 RATIO = 1
 RESOLUTION = WIDTH, HEIGHT = 1600*RATIO, 900*RATIO
+HALF_HEIGHT, HALF_WIDTH = HEIGHT //2, WIDTH // 2
 FPS = 60
 
 PLAYER_POSITION = 1, 5
@@ -16,3 +17,7 @@ NUM_RAYS = WIDTH // 2
 HALF_NUM_RAYS = NUM_RAYS // 2
 DELTA_ANGLE = FOV / NUM_RAYS
 MAX_DEPTH = 20
+
+# Constant value, In Wolfenstein game they used the one that's easy to multipliy by only using the shifts
+SCREEN_DISTANCE = HALF_WIDTH / math.tan(HALF_FOV) 
+SCALE = WIDTH // NUM_RAYS
