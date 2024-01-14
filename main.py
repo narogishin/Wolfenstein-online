@@ -4,6 +4,7 @@ from settings import RESOLUTION, FPS
 from map import Map
 from player import Player
 from ray_casting import RayCasting
+from object_renderer import ObjectRenderer
 
 class Game:
   def __init__(self) -> None:
@@ -16,6 +17,7 @@ class Game:
   def new_game(self):
    self.map = Map(self)
    self.player = Player(self)
+   self.object_renderer = ObjectRenderer(self)
    self.ray_cast = RayCasting(self)
 
   def update(self):
@@ -27,8 +29,9 @@ class Game:
 
   def draw(self):
     self.screen.fill('black')
+    self.object_renderer.draw()
     # self.map.draw()
-    # self.player.draw() it's a moon now
+    # self.player.draw() # it's a moon now
 
   def check_event(self):
     keys = pg.key.get_pressed()
