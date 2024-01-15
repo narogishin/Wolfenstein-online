@@ -10,6 +10,15 @@ PLAYER_POSITION = 1, 5
 PLAYER_ANGLE = 0
 PLAYER_SPEED = 0.004
 PLAYER_ROT_SPEED = 0.002
+PLAYER_SIZE_SCALE = 60 
+# to be honest, I wouldn't think about this only when 
+# I'll notice the problem and try to solve it, is that normal ?
+
+# Mouse Settings
+MOUSE_SENSITIVITY = 0.0001
+MOUSE_MAX_RELATIVE_MOUVEMENT = 40
+MOUSE_BORDER_LEFT = 100
+MOUSE_BORDER_RIGHT = WIDTH - MOUSE_BORDER_LEFT
 
 FOV = math.pi / 3 # field of view
 HALF_FOV = FOV / 2
@@ -18,7 +27,8 @@ HALF_NUM_RAYS = NUM_RAYS // 2
 DELTA_ANGLE = FOV / NUM_RAYS
 MAX_DEPTH = 20
 
-# Constant value, In Wolfenstein game they used the one that's easy to multipliy by only using the shifts
+# Constant value, In Wolfenstein game they used the one that's 
+# easy to multipliy by only using the shifts
 SCREEN_DISTANCE = HALF_WIDTH / math.tan(HALF_FOV) 
 SCALE = WIDTH // NUM_RAYS
 

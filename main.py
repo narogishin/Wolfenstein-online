@@ -9,6 +9,7 @@ from object_renderer import ObjectRenderer
 class Game:
   def __init__(self) -> None:
     pg.init()
+    pg.mouse.set_visible(False)
     self.screen = pg.display.set_mode(RESOLUTION)
     self.clock = pg.time.Clock()
     self.dt = 1
@@ -28,7 +29,7 @@ class Game:
     pg.display.set_caption(f'{self.clock.get_fps() :.1f}')
 
   def draw(self):
-    self.screen.fill('black')
+    # self.screen.fill('black')
     self.object_renderer.draw()
     # self.map.draw()
     # self.player.draw() # it's a moon now

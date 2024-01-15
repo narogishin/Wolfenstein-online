@@ -14,13 +14,24 @@ class RayCasting:
     for ray, values in enumerate(self.ray_casting_result):
       depth, projected_height, texture, offset = values
 
-      wall_column = self.textures[texture].subsurface(
-        offset * (TEXTURE_SIZE - SCALE), 0, SCALE, TEXTURE_SIZE
-      )
-      wall_column = pg.transform.scale(wall_column, (SCALE, projected_height))
-      wall_position = (ray * SCALE, HALF_HEIGHT - projected_height // 2)
+      if projected_height < HEIGHT:
+        wall_column = self.textures[texture].subsurface(
+          offset * (TEXTURE_SIZE - SCALE), 0, SCALE, TEXTURE_SIZE
+        )
+        wall_column = pg.transform.scale(wall_column, (SCALE, projected_height))
+        wall_position = (ray * SCALE, HALF_HEIGHT - projected_height // 2)
+        self.objects_to_render.append((depth, wall_column, wall_position))
+      else:
+        # what's the difference between here and above ?
+        texture_height = TEXTURE_SIZE * HEIGHT / projected_height
+        wall_column = self.textures[texture].subsurface(
+          offset * (TEXTURE_SIZE - SCALE), HALF_TEXTURE_SIZE - texture_height // 2,
+            SCALE, texture_height
+        )
+        wall_column = pg.transform.scale(wall_column, (SCALE, HEIGHT))
+        wall_position = (ray * SCALE, 0)
 
-      self.objects_to_render.append((depth, wall_column, wall_position))
+        self.objects_to_render.append((depth, wall_column, wall_position))
 
     return self.objects_to_render
 
