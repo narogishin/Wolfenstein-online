@@ -2,7 +2,7 @@ from settings import *
 import pygame as pg
 
 class SpriteObject:
-  def __init__(self, game, path = 'ressources/textures/candlebra.png', position = (10.5, 3.5)) -> None:
+  def __init__(self, game, path = 'ressources/textures/Penguin Black.png', position = (10.5, 3.5)) -> None:
     self.game = game
     self.player = game.player
     self.x, self.y = position
@@ -22,7 +22,7 @@ class SpriteObject:
     self.sprite_half_width = proj_width // 2
     position = self.screen_x - self.sprite_half_width, HALF_HEIGHT - proj_height // 2
 
-    # the image doesn't show
+    # the image doesn't show, solved it
     self.game.ray_cast.objects_to_render.append((self.norm_dist, image, position))
 
   def get_sprite(self):
