@@ -6,7 +6,7 @@ class ObjectRenderer:
     self.game = game
     self.screen = game.screen
     self.wall_textures = self.load_wall_textures()
-    self.sky_image = self.get_texture("ressources/textures/sky.jpg", (WIDTH, HALF_HEIGHT))
+    self.sky_image = self.get_texture("ressources/textures/sky (2).jpg", (WIDTH, HALF_HEIGHT))
     self.sky_offset = 0
 
   def draw(self):
@@ -15,11 +15,12 @@ class ObjectRenderer:
 
   def draw_backgroud(self):
     # what does it have to do with rel ?
-    self.sky_offset = (self.sky_offset + 4 * self.game.player.rel) % WIDTH
-    self.screen.blit(self.sky_image, (-self.sky_offset, 0))
-    self.screen.blit(self.sky_image, (-self.sky_offset + WIDTH, 0))
+    # self.sky_offset = (self.sky_offset + 4 * self.game.player.rel) % WIDTH
+    # self.screen.blit(self.sky_image, (-self.sky_offset, 0))
+    # self.screen.blit(self.sky_image, (-self.sky_offset + WIDTH, 0))
 
     # drawing the floor
+    pg.draw.rect(self.game.screen, (120,0,100), (0, 0, WIDTH, HEIGHT))
     pg.draw.rect(self.game.screen, (30,30,30), (0, HALF_HEIGHT, WIDTH, HEIGHT))
 
   def render_game_objects(self):

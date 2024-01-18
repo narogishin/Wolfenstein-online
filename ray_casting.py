@@ -20,6 +20,7 @@ class RayCasting:
         )
         wall_column = pg.transform.scale(wall_column, (SCALE, projected_height))
         wall_position = (ray * SCALE, HALF_HEIGHT - projected_height // 2)
+        
         self.objects_to_render.append((depth, wall_column, wall_position))
       else:
         # what's the difference between here and above ?
@@ -91,6 +92,8 @@ class RayCasting:
       cos_a = math.cos(ray_angle)
       sin_a = math.sin(ray_angle)
 
+      # do understand what is the offset, one should know what it's used for
+      # and why the case of sin is the inverse of the case of cos ?
       depth_hor, texture_hor, y_hor, x_hor = self.horizontal_ray_cast(sin_a, cos_a, ox, oy, y_map)
       depth_vert, texture_vert, y_vert, x_vert = self.vertical_ray_cast(sin_a, cos_a, ox, oy, x_map)
 
@@ -108,7 +111,7 @@ class RayCasting:
       # pg.draw.line(self.game.screen, 'yellow', (ox*100, oy*100), 
       #              (100*ox + 100*depth*cos_a, 100*oy + 100*depth*sin_a), 2)
 
-      color = [255/(1+ depth ** 5 * 0.00001)]*3
+      # color = [255/(1+ depth ** 5 * 0.00001)]*3
 
       # pg.draw.rect(self.game.screen, color, (ray * SCALE, HALF_HEIGHT - projected_height // 2, SCALE, projected_height))
 

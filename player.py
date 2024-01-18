@@ -1,6 +1,6 @@
 from settings import *
 import pygame as pg
-import math
+# import math
 
 class Player:
   def __init__(self, game) -> None:

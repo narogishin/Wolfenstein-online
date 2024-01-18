@@ -1,0 +1,49 @@
+from settings import *
+import pygame as pg
+
+class SpriteObject:
+  def __init__(self, game, path = 'ressources/textures/candlebra.png', position = (10.5, 3.5)) -> None:
+    self.game = game
+    self.player = game.player
+    self.x, self.y = position
+    self.image = pg.image.load(path).convert_alpha()
+    self.IMAGE_WIDTH = self.image.get_width()
+    self.IMAGE_HALF_WIDTH = self.image.get_width() // 2
+    self.IMAGE_RATIO = self.IMAGE_WIDTH / self.image.get_height()
+    self.dx, self.dy, self.theta, self.screen_x, self.dist, self.norm_dist = 0, 0, 0, 0, 1, 1
+    self.sprite_half_width = 0
+
+  def get_sprite_projection(self):
+    proj = SCREEN_DISTANCE / self.norm_dist
+    proj_width, proj_height = proj * self.IMAGE_RATIO, proj
+
+    image = pg.transform.scale(self.image, (proj_width, proj_height))
+
+    self.sprite_half_width = proj_width // 2
+    position = self.screen_x - self.sprite_half_width, HALF_HEIGHT - proj_height // 2
+
+    # the image doesn't show
+    self.game.ray_cast.objects_to_render.append((self.norm_dist, image, position))
+
+  def get_sprite(self):
+    dx = self.x - self.player.x
+    dy = self.y - self.player.y
+    self.dx, self.dy = dx, dy
+    self.theta = math.atan2(dy, dx)
+
+    delta = self.theta - self.player.angle
+    if (dx > 0 and self.player.angle > math.pi) or (dx < 0 and dy < 0):
+      delta += 2*math.pi
+
+    delta_rays = delta / DELTA_ANGLE
+    self.screen_x = (HALF_NUM_RAYS + delta_rays) * SCALE
+
+    self.dist = math.hypot(dx, dy)
+    self.norm_dist = self.dist * math.cos(delta)
+
+    # check if in visible part of the screen and not too close to the player
+    if -self.IMAGE_HALF_WIDTH < self.screen_x < (WIDTH + self.IMAGE_HALF_WIDTH) and self.norm_dist > 0.5:
+      self.get_sprite_projection()
+
+  def update(self):
+    self.get_sprite()
