@@ -2,7 +2,9 @@ from settings import *
 import pygame as pg
 
 class SpriteObject:
-  def __init__(self, game, path = 'ressources/textures/Penguin Black.png', position = (10.5, 3.5)) -> None:
+  def __init__(self, game, path = 'ressources/textures/Penguin Black.png', 
+               position = (10.5, 3.5), scale = 0.5, shift = 0.0
+               ) -> None:
     self.game = game
     self.player = game.player
     self.x, self.y = position
@@ -12,15 +14,18 @@ class SpriteObject:
     self.IMAGE_RATIO = self.IMAGE_WIDTH / self.image.get_height()
     self.dx, self.dy, self.theta, self.screen_x, self.dist, self.norm_dist = 0, 0, 0, 0, 1, 1
     self.sprite_half_width = 0
+    self.sprite_scale = scale
+    self.sprite_height_shift = shift
 
   def get_sprite_projection(self):
-    proj = SCREEN_DISTANCE / self.norm_dist
+    proj = SCREEN_DISTANCE / self.norm_dist * self.sprite_scale
     proj_width, proj_height = proj * self.IMAGE_RATIO, proj
 
     image = pg.transform.scale(self.image, (proj_width, proj_height))
 
     self.sprite_half_width = proj_width // 2
-    position = self.screen_x - self.sprite_half_width, HALF_HEIGHT - proj_height // 2
+    height_shift = proj_height * self.sprite_height_shift
+    position = self.screen_x - self.sprite_half_width, HALF_HEIGHT - proj_height // 2 + height_shift
 
     # the image doesn't show, solved it
     self.game.ray_cast.objects_to_render.append((self.norm_dist, image, position))
