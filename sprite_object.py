@@ -1,9 +1,13 @@
-from settings import *
+import os
 import pygame as pg
+from settings import *
+# what is this library ? what's deque
+from collections import deque
+
 
 class SpriteObject:
   def __init__(self, game, path = 'ressources/textures/Penguin Black.png', 
-               position = (10.5, 3.5), scale = 0.5, shift = 0.0
+               position = (10.5, 3.5), scale = 0.7, shift = 0.5
                ) -> None:
     self.game = game
     self.player = game.player
@@ -52,3 +56,41 @@ class SpriteObject:
 
   def update(self):
     self.get_sprite()
+
+
+
+class AnimatedSprite(SpriteObject):
+  def __init__(self, game, path='ressources/sprites/animated sprites/fire glowing 1 .png', 
+               position=(11.5, 3.5), scale=0.5, shift=0.5, animation_time = 120) -> None:
+    super().__init__(game, path, position, scale, shift)
+    self.animation_time = animation_time
+    # what's difference between rsplit and split methods ?
+    self.path = path.rsplit('/', 1)[0]
+    self.images = self.get_images(self.path)
+    self.old_time = pg.time.get_ticks()
+    self.animation_trigger = False
+
+  def update(self):
+    super().update()
+    self.check_animation_time()
+    self.animate(self.images)
+
+  def animate(self, images):
+    if self.animation_trigger:
+      images.rotate(-1)
+      self.image = images[0]
+
+  def check_animation_time(self):
+    self.animation_trigger = False
+    time_now = pg.time.get_ticks()
+    if time_now - self.old_time > self.animation_time:
+      self.old_time = time_now
+      self.animation_trigger = True
+
+  def get_images(self, path):
+    images = deque()
+    for file_name in os.listdir(path):
+      if os.path.isfile(os.path.join(path, file_name)):
+        img = pg.image.load(path + '/' + file_name).convert_alpha()
+        images.append(img)
+    return images
