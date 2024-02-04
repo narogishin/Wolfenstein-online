@@ -7,6 +7,7 @@ from player import Player
 from ray_casting import RayCasting
 from object_renderer import ObjectRenderer
 from sprite_object import SpriteObject
+from weapon import Weapon
 
 class Game:
   def __init__(self) -> None:
@@ -23,11 +24,13 @@ class Game:
    self.object_renderer = ObjectRenderer(self)
    self.ray_cast = RayCasting(self)
    self.object_handler = ObjectHandler(self)
+   self.weapon = Weapon(self)
 
   def update(self):
     self.player.update()
     self.ray_cast.update()
     self.object_handler.update()
+    self.weapon.update()
     pg.display.flip()
     self.dt = self.clock.tick(FPS)
     pg.display.set_caption(f'{self.clock.get_fps() :.1f}')
@@ -35,6 +38,7 @@ class Game:
   def draw(self):
     # self.screen.fill('black')
     self.object_renderer.draw()
+    self.weapon.draw()
     # self.map.draw()
     # self.player.draw() # it's a moon now
 
@@ -44,6 +48,7 @@ class Game:
       if event.type == pg.QUIT or keys[pg.K_ESCAPE]:
         pg.quit()
         sys.exit()
+      self.player.single_fire_event(event)
 
   def run(self):
     while True:

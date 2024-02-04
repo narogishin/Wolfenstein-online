@@ -7,6 +7,13 @@ class Player:
     self.game = game
     self.x, self.y = PLAYER_POSITION
     self.angle = PLAYER_ANGLE
+    self.shot = False
+
+  def single_fire_event(self, event):
+    if event.type == pg.MOUSEBUTTONDOWN:
+      if event.button == 1 and not self.shot and not self.game.weapon.reloading:
+        self.shot = True
+        self.game.weapon.reloading = True
 
   def movement(self):
     sin_a = math.sin(self.angle)
@@ -48,6 +55,7 @@ class Player:
     return (x, y) not in self.game.map.world_map
   
   def check_wall_collision(self, dx, dy):
+    # what is the usage of this scale ? should I really be interested in this ?
     scale = PLAYER_SIZE_SCALE / self.game.dt
     if self.check_wall(int(self.x+dx*scale), int(self.y)):
       self.x += dx
