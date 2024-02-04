@@ -25,6 +25,7 @@ class Game:
    self.ray_cast = RayCasting(self)
    self.object_handler = ObjectHandler(self)
    self.weapon = Weapon(self)
+   self.sound = Sound()
 
   def update(self):
     self.player.update()
