@@ -4,7 +4,7 @@ from settings import *
 import pygame as pg
 
 class SpriteObject:
-    def __init__(self, game, path='resources/sprites/static_sprites/candlebra.png',
+    def __init__(self, game, path='resources/sprites/static sprites/candlebra.png',
                  pos=(10.5, 3.5), scale=0.7, shift=0.27):
         self.game = game
         self.player = game.player
@@ -55,7 +55,7 @@ class SpriteObject:
 
 
 class AnimatedSprite(SpriteObject):
-  def __init__(self, game, path='ressources/animated sprites/fire glowing (1).png',
+  def __init__(self, game, path='ressources/sprites/animated sprites/fire glowing (1).png',
                 pos=(11.5, 3.5), scale=0.8, shift=0.16, animation_time=120):
     super().__init__(game, path, pos, scale, shift)
     self.animation_time = animation_time

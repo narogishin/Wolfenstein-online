@@ -6,7 +6,7 @@ from map import Map
 from player import Player
 from ray_casting import RayCasting
 from object_renderer import ObjectRenderer
-from sprite_object import SpriteObject
+from sound import Sound
 from weapon import Weapon
 
 class Game:
