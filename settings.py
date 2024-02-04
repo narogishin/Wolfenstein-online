@@ -13,6 +13,8 @@ PLAYER_ROT_SPEED = 0.002
 PLAYER_SIZE_SCALE = 60 
 # to be honest, I wouldn't think about this only when 
 # I'll notice the problem and try to solve it, is that normal ?
+# Maybe because I'm used to go and program things without plan, 
+# which is a bad habit
 
 # Mouse Settings
 MOUSE_SENSITIVITY = 0.0001
