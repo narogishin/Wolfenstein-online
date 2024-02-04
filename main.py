@@ -1,11 +1,12 @@
 import pygame as pg
 import sys
+from object_handler import ObjectHandler
 from settings import RESOLUTION, FPS
 from map import Map
 from player import Player
 from ray_casting import RayCasting
 from object_renderer import ObjectRenderer
-from object_handler import ObjectHandler
+from sprite_object import SpriteObject
 
 class Game:
   def __init__(self) -> None:
