@@ -51,7 +51,7 @@ class NPC(AnimatedSprite):
         self.animate(self.walk_images)
 
   @property
-  def map_position(self):
+  def map_pos(self):
     return int(self.x), int(self.y)
   
   def horizontal_ray_cast(self, sin_a, cos_a, ox, oy, y_map):
@@ -68,7 +68,7 @@ class NPC(AnimatedSprite):
 
       for i in range(MAX_DEPTH):
         tile_hor = int(x_hor), int(y_hor)
-        if tile_hor in self.game.map.world_map:
+        if tile_hor == self.map_pos:
           player_dist_h = depth_hor
           break
         if tile_hor in self.game.map.world_map:
@@ -99,7 +99,7 @@ class NPC(AnimatedSprite):
         if tile_vert in self.game.map.world_map:
           wall_dist_v = depth_vert
           break
-        if tile_vert in self.game.map.world_map:
+        if tile_vert == self.map_pos:
           player_dist_v = depth_vert
           break
         else:
@@ -110,7 +110,7 @@ class NPC(AnimatedSprite):
 
   def ray_cast_player_npc(self):
     # checking if the player is in the same tile as the NPC
-    if self.game.player.map_position == self.map_position:
+    if self.game.player.map_position == self.map_pos:
       return True
     
     ox, oy = self.game.player.position
