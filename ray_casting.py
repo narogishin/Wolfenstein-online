@@ -36,50 +36,50 @@ class RayCasting:
     # return self.objects_to_render
 
   def horizontal_ray_cast(self, sin_a, cos_a, ox, oy, y_map):
-      texture_hor = 1
-      # still need to know about that -1e-6 
-      y_hor, dy = (y_map + 1, 1) if sin_a > 0 else (y_map - 1e-6, -1)
-      # my answer : it's used to round x_map to it's previous value, if not it'll it's actual value
-      depth_hor = (y_hor - oy) / sin_a
-      x_hor = ox + depth_hor * cos_a
+    texture_hor = 1
+    # still need to know about that -1e-6 
+    y_hor, dy = (y_map + 1, 1) if sin_a > 0 else (y_map - 1e-6, -1)
+    # my answer : it's used to round x_map to it's previous value, if not it'll it's actual value
+    depth_hor = (y_hor - oy) / sin_a
+    x_hor = ox + depth_hor * cos_a
 
-      delta_depth = dy / sin_a
-      dx = delta_depth * cos_a
+    delta_depth = dy / sin_a
+    dx = delta_depth * cos_a
 
-      for i in range(MAX_DEPTH):
-        tile_hor = int(x_hor), int(y_hor)
-        if tile_hor in self.game.map.world_map:
-          texture_hor = self.game.map.world_map[tile_hor]
-          break
-        else:
-          x_hor += dx
-          y_hor += dy
-          depth_hor += delta_depth
-      return depth_hor, texture_hor, y_hor, x_hor
+    for i in range(MAX_DEPTH):
+      tile_hor = int(x_hor), int(y_hor)
+      if tile_hor in self.game.map.world_map:
+        texture_hor = self.game.map.world_map[tile_hor]
+        break
+      else:
+        x_hor += dx
+        y_hor += dy
+        depth_hor += delta_depth
+    return depth_hor, texture_hor, y_hor, x_hor
 
   def vertical_ray_cast(self, sin_a, cos_a, ox, oy, x_map):
-      texture_vert = 1
-      # still need to know about that -1e-6 
-      x_vert, dx = (x_map + 1, 1) if cos_a > 0 else (x_map - 1e-6, -1)
-      # my answer : it's used to round x_map to it's previous value, if not it'll it's actual value
-      
-      depth_vert = (x_vert - ox) / cos_a
-      y_vert = oy + depth_vert * sin_a
+    texture_vert = 1
+    # still need to know about that -1e-6 
+    x_vert, dx = (x_map + 1, 1) if cos_a > 0 else (x_map - 1e-6, -1)
+    # my answer : it's used to round x_map to it's previous value, if not it'll it's actual value
+    
+    depth_vert = (x_vert - ox) / cos_a
+    y_vert = oy + depth_vert * sin_a
 
-      # dy = dx*math.tan(ray_angle)
-      delta_depth = dx / cos_a
-      dy = delta_depth * sin_a
+    # dy = dx*math.tan(ray_angle)
+    delta_depth = dx / cos_a
+    dy = delta_depth * sin_a
 
-      for i in range(MAX_DEPTH):
-        tile_vert = int(x_vert), int(y_vert)
-        if tile_vert in self.game.map.world_map:
-          texture_vert = self.game.map.world_map[tile_vert]
-          break
-        else:
-          x_vert += dx
-          y_vert += dy
-          depth_vert += delta_depth
-      return depth_vert, texture_vert, y_vert, x_vert
+    for i in range(MAX_DEPTH):
+      tile_vert = int(x_vert), int(y_vert)
+      if tile_vert in self.game.map.world_map:
+        texture_vert = self.game.map.world_map[tile_vert]
+        break
+      else:
+        x_vert += dx
+        y_vert += dy
+        depth_vert += delta_depth
+    return depth_vert, texture_vert, y_vert, x_vert
 
   def ray_cast(self):
     ox, oy = self.game.player.position
