@@ -11,7 +11,7 @@ class ObjectHandler:
     self.static_sprite_path = 'ressources/sprites/static sprites'
     self.animated_sprite_path = 'ressources/sprites/animated sprites'
     add_sprite = self.add_sprite
-    add_npc = self.add_npc
+    # add_npc = self.add_npc
 
     add_sprite(AnimatedSprite(game))
     add_sprite(AnimatedSprite(game, pos=(1.5, 1.5)))
@@ -41,6 +41,7 @@ class ObjectHandler:
   def update(self):
     [sprite.update() for sprite in self.sprite_list]
     [npc.update() for npc in self.npc_list]
+    print(self.npc_list)
 
   def add_npc(self, npc: NPC, player_name: str):
     self.npc_list.append(npc)

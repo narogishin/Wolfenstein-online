@@ -1,11 +1,11 @@
 import pygame as pg
 import sys
-from object_handler import ObjectHandler
 from settings import RESOLUTION, FPS
 from map import Map
 from client import Client
 from player import Player
 from ray_casting import RayCasting
+from object_handler import ObjectHandler
 from object_renderer import ObjectRenderer
 from sound import Sound
 from weapon import Weapon
@@ -43,7 +43,7 @@ class Game:
     self.screen.fill('black')
     self.object_renderer.draw()
     self.weapon.draw()
-    # self.client.draw()
+    self.client.draw()
     # self.map.draw()
     # self.player.draw() # it's a moon now
 
@@ -51,6 +51,7 @@ class Game:
     keys = pg.key.get_pressed()
     for event in pg.event.get():
       if event.type == pg.QUIT or keys[pg.K_ESCAPE]:
+        self.client.disconnect()
         pg.quit()
         sys.exit()
       self.player.single_fire_event(event)

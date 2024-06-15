@@ -1,13 +1,11 @@
 import socket, pickle
 from npc import NPC
-from object_handler import ObjectHandler
 from settings import *
-# import pygame as pg
 
 class Client:
   def __init__(self, game) -> None:
     self.game = game
-    self.obj_handler = ObjectHandler(self.game)
+    self.object_handler = self.game.object_handler
     self.get_connected()
 
   def get_connected(self):
@@ -22,12 +20,13 @@ class Client:
     for player, data in msg.items():
       if player != self.game.player.name:
         x, y, angle = data.split(',')
-        if player not in self.obj_handler.npcs:
-          self.obj_handler.add_npc(NPC(self.game, pos=(int(x), int(y))), player)
+        if player not in self.object_handler.npcs:
+          self.game.object_handler.npc_list.append(NPC(self.game))
+          self.game.object_handler.npcs[player] = NPC(self.game)
         else:
-          self.obj_handler.npcs[player].x = int(x)
-          self.obj_handler.npcs[player].y = int(y)
-          self.obj_handler.npcs[player].angle = int(angle)
+          self.game.object_handler.npcs[player].x = x
+          self.game.object_handler.npcs[player].y = y
+          self.game.object_handler.npcs[player].angle = angle
           
   def send_msg(self, msg: bytes):
     msg += b' ' * (HEADER - len(msg))
@@ -38,7 +37,6 @@ class Client:
     self.send_msg(pickle.dumps(self.data))
 
   def recv_message(self) -> dict:
-    # print('receiving from server')
     msg = pickle.loads(self.client.recvfrom(HEADER)[0])
     if msg:
       return msg

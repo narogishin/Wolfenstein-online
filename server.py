@@ -2,7 +2,7 @@ import socket, pickle
 
 SERVER_IP = socket.gethostbyname(socket.gethostname())
 PORT = 12345
-HEADER= 128
+HEADER= 128*2
 FORMAT = 'utf-8'
 ADDR = (SERVER_IP, PORT)
 DM = "@disconnect"
@@ -21,7 +21,6 @@ def update_data(msg: str, data: dict):
 
 def handle_client(client_data: bytes, data: dict) -> None:
   msg = pickle.loads(client_data)
-  print(msg)
   if msg:
     msg = msg.split(' ')[0]
     try : 
