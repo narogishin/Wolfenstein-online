@@ -20,30 +20,30 @@ class Game:
     self.new_game()
 
   def new_game(self):
-  #  self.client = Client(self)
    self.map = Map(self)
    self.player = Player(self)
    self.object_renderer = ObjectRenderer(self)
    self.ray_cast = RayCasting(self)
    self.object_handler = ObjectHandler(self)
    self.weapon = Weapon(self)
+   self.client = Client(self)
    self.sound = Sound()
 
   def update(self):
-    # self.client.update()
     self.player.update()
     self.ray_cast.update()
     self.object_handler.update()
     self.weapon.update()
     pg.display.flip()
+    self.client.update()
     self.dt = self.clock.tick(FPS)
     pg.display.set_caption(f'{self.clock.get_fps() :.1f}')
 
   def draw(self):
     self.screen.fill('black')
-    # self.client.draw()
     self.object_renderer.draw()
     self.weapon.draw()
+    # self.client.draw()
     # self.map.draw()
     # self.player.draw() # it's a moon now
 

@@ -1,6 +1,6 @@
 import socket, pickle
 
-SERVER_IP = "192.168.1.12" # change this to your local ip
+SERVER_IP = socket.gethostbyname(socket.gethostname())
 PORT = 12345
 HEADER= 128
 FORMAT = 'utf-8'
@@ -21,6 +21,7 @@ def update_data(msg: str, data: dict):
 
 def handle_client(client_data: bytes, data: dict) -> None:
   msg = pickle.loads(client_data)
+  print(msg)
   if msg:
     msg = msg.split(' ')[0]
     try : 
