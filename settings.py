@@ -36,3 +36,14 @@ SCALE = WIDTH // NUM_RAYS
 
 TEXTURE_SIZE = 64
 HALF_TEXTURE_SIZE = TEXTURE_SIZE // 2
+
+# utils
+f = lambda txt, idx : txt.split(',')[idx]
+names = [chr(65+i)+str(j) for i in range(20) for j in range(1,100)]
+
+# Networking
+SERVER_IP = "192.168.1.12"
+PORT = 12345
+HEADER= 128
+ADDR = (SERVER_IP, PORT)
+DM = "@disconnect"

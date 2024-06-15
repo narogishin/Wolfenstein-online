@@ -3,6 +3,7 @@ import sys
 from object_handler import ObjectHandler
 from settings import RESOLUTION, FPS
 from map import Map
+from client import Client
 from player import Player
 from ray_casting import RayCasting
 from object_renderer import ObjectRenderer
@@ -19,6 +20,7 @@ class Game:
     self.new_game()
 
   def new_game(self):
+  #  self.client = Client(self)
    self.map = Map(self)
    self.player = Player(self)
    self.object_renderer = ObjectRenderer(self)
@@ -28,6 +30,7 @@ class Game:
    self.sound = Sound()
 
   def update(self):
+    # self.client.update()
     self.player.update()
     self.ray_cast.update()
     self.object_handler.update()
@@ -38,10 +41,11 @@ class Game:
 
   def draw(self):
     self.screen.fill('black')
-    # self.object_renderer.draw()
-    # self.weapon.draw()
-    self.map.draw()
-    self.player.draw() # it's a moon now
+    # self.client.draw()
+    self.object_renderer.draw()
+    self.weapon.draw()
+    # self.map.draw()
+    # self.player.draw() # it's a moon now
 
   def check_event(self):
     keys = pg.key.get_pressed()

@@ -26,7 +26,7 @@ class NPC(AnimatedSprite):
     self.check_animation_time()
     self.get_sprite()
     self.run_logic()
-    self.draw_ray_cast()
+    # self.draw_ray_cast()
 
   def animate_pain(self):
     self.animate(self.pain_images)
@@ -43,11 +43,14 @@ class NPC(AnimatedSprite):
       # why setting it here to false ? maybe we should wait for next animation to make sure the old animation is played
     
   def run_logic(self):
+    old_x, old_y = int(self.x), int(self.y)
     if self.alive:
       self.check_hit_in_npc()
       if self.pain:
         self.animate_pain()
       else:
+        self.animate(self.idle_images)
+      if (old_x, old_y) != self.map_pos:
         self.animate(self.walk_images)
 
   @property
