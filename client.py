@@ -22,16 +22,16 @@ class Client:
         x, y, angle = data.split(',')
         if player not in self.object_handler.npcs:
           self.game.object_handler.npc_list.append(NPC(self.game))
-          self.game.object_handler.npcs[player] = NPC(self.game)
+          self.game.object_handler.npcs[player] = f'{x},{y},{player},{angle}'
           print(f'{player} is connected as {self.game.object_handler.npcs[player]}')
         else:
           # self.game.object_handler.npcs[player].x = float(x)
           # self.game.object_handler.npcs[player].y = float(y)
-          self.game.object_handler.npcs[player].pos = float(x), float(y)
+          self.game.object_handler.npcs[player] = f'{x},{y},{player},{angle}'
           # self.game.object_handler.npcs[player].mouvement((float(x), float(y)), float(angle))
-          self.game.object_handler.npcs[player].angle = float(angle) 
-          # # could change to float later
-          self.game.object_handler.npcs[player].update()
+          # self.game.object_handler.npcs[player].angle = float(angle) 
+          # # # could change to float later
+          # self.game.object_handler.npcs[player].update()
           
   def send_msg(self, msg: bytes):
     msg += b' ' * (HEADER - len(msg))
