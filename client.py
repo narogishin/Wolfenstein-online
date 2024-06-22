@@ -43,3 +43,4 @@ class Client:
 
   def disconnect(self):
     self.send_msg(pickle.dumps(f'{DM}:{self.game.player.name}'))
+    self.game.object_handler.npcs.pop(self.game.player.name)
