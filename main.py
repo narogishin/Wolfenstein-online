@@ -16,6 +16,10 @@ class Game:
     pg.mouse.set_visible(False)
     self.screen = pg.display.set_mode(RESOLUTION)
     self.clock = pg.time.Clock()
+    # what's the meaning of the following 3 lines ?
+    self.global_trigger = False
+    self.global_event = pg.USEREVENT + 0
+    pg.time.set_timer(self.global_event, 40)
     self.dt = 1
     self.new_game()
 
@@ -48,12 +52,15 @@ class Game:
     # self.player.draw() # it's a moon now
 
   def check_event(self):
+    self.global_trigger = False
     keys = pg.key.get_pressed()
     for event in pg.event.get():
       if event.type == pg.QUIT or keys[pg.K_ESCAPE]:
         self.client.disconnect()
         pg.quit()
         sys.exit()
+      elif event.type == self.global_event:
+        self.global_trigger = True
       self.player.single_fire_event(event)
 
   def run(self):

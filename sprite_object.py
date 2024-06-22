@@ -32,7 +32,7 @@ class SpriteObject:
         self.game.ray_cast.objects_to_render.append((self.norm_dist, image, pos))
 
     def get_sprite(self):
-        # I don't understand the math of this function, and I'd like to
+        # I don't understand the math of this function, but I'd like to
         dx = self.x - self.player.x
         dy = self.y - self.player.y
         self.dx, self.dy = dx, dy

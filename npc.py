@@ -21,6 +21,7 @@ class NPC(AnimatedSprite):
     self.accuracy = 0.15
     self.alive = True
     self.pain = False
+    self.frame_counter = 0
 
   def update(self):
     self.check_animation_time()
@@ -34,24 +35,43 @@ class NPC(AnimatedSprite):
     if self.animation_trigger:
       self.pain = False
 
+  def animate_death(self):
+      if not self.alive:
+        if self.game.global_trigger and self.frame_counter < len(self.death_images) - 1:
+          self.death_images.rotate(-1)
+          self.image = self.death_images[0]
+          self.frame_counter += 1
+          # we could add here somthing to stop the player's mouvement because he is dead
+          # self.game.object_handler.npcs.pop(self.game.player.name) 
+
   def check_hit_in_npc(self):
-    if self.game.player.shot and HALF_WIDTH - self.sprite_half_width < self.screen_x < HALF_WIDTH + self.sprite_half_width:
+    if self.game.player.shot and self.ray_cast_value and HALF_WIDTH - self.sprite_half_width < self.screen_x < HALF_WIDTH + self.sprite_half_width:
       # making sure that the sprite is aligned with the gun and the player had pressed the button to kill npc
       self.pain = True
       # should it be here ? or just use another player.variable like shoot and make it the same state as this self.pain ?
       self.game.player.shot = False
       # why setting it here to false ? maybe we should wait for next animation to make sure the old animation is played
+      self.health -= self.game.weapon.damage
+      self.check_health()
+
+  def check_health(self):
+    if self.health <= 0:
+      self.alive = False
+      self.game.sound.npc_death.play()
     
   def run_logic(self):
-    old_x, old_y = int(self.x), int(self.y)
+    # old_x, old_y = int(self.x), int(self.y)
     if self.alive:
+      self.ray_cast_value = self.ray_cast_player_npc()
       self.check_hit_in_npc()
       if self.pain:
         self.animate_pain()
       else:
         self.animate(self.idle_images)
-      if (old_x, old_y) != self.map_pos:
-        self.animate(self.walk_images)
+      # if (old_x, old_y) != self.map_pos:
+      #   self.animate(self.walk_images)
+    else:
+      self.animate_death()
 
   @property
   def map_pos(self):
