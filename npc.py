@@ -41,10 +41,12 @@ class NPC(AnimatedSprite):
       self.y += dy
 
   def mouvement(self, new_pos: tuple, new_angle: float):
-    new_x, new_y = new_pos
-    dx, dy = new_x - self.x, new_y - self.y
-    while dx != 0 or dy != 0:
-      self.check_wall_collision(1, 1)
+    new_x, new_y = self.game.player.map_position
+    # dx, dy = new_x - self.x, new_y - self.y
+    angle = math.atan2(new_y - self.y + 0.5, new_x - self.x + 0.5)
+    dx, dy = math.cos(angle) * self.speed, math.sin(angle) * self.speed
+    # if dx != 0 or dy != 0:
+    self.check_wall_collision(dx, dy)
 
   def animate_pain(self):
     self.animate(self.pain_images)
