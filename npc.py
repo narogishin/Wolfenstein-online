@@ -1,4 +1,4 @@
-from sprite_object import SpriteObject, AnimatedSprite
+from sprite_object import AnimatedSprite
 from random import randint, random, choice
 from settings import *
 import pygame as pg
@@ -28,6 +28,23 @@ class NPC(AnimatedSprite):
     self.get_sprite()
     self.run_logic()
     # self.draw_ray_cast()
+
+  def check_wall(self, x, y):
+    return (x, y) not in self.game.map.world_map
+  
+  def check_wall_collision(self, dx, dy):
+    # what is the usage of this scale ? should I really be interested in this ?
+    # scale = PLAYER_SIZE_SCALE / self.game.dt
+    if self.check_wall(int(self.x+dx*self.size), int(self.y)):
+      self.x += dx
+    if self.check_wall(int(self.x), int(self.y+dy*self.size)):
+      self.y += dy
+
+  def mouvement(self, new_pos: tuple, new_angle: float):
+    new_x, new_y = new_pos
+    dx, dy = new_x - self.x, new_y - self.y
+    while dx != 0 or dy != 0:
+      self.check_wall_collision(1, 1)
 
   def animate_pain(self):
     self.animate(self.pain_images)
@@ -82,7 +99,8 @@ class NPC(AnimatedSprite):
       texture_hor = 1
       # still need to know about that -1e-6 
       y_hor, dy = (y_map + 1, 1) if sin_a > 0 else (y_map - 1e-6, -1)
-      # my answer : it's used to round x_map to it's previous value, if not it'll it's actual value
+      # my answer : it's used to round x_map to it's previous value, 
+      # if not it'll ?? it's actual value
       depth_hor = (y_hor - oy) / sin_a
       x_hor = ox + depth_hor * cos_a
 
