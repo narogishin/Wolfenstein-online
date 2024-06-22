@@ -29,6 +29,7 @@ def handle_client(client_data: bytes, data: dict) -> None:
     except IndexError:
       prev_key = msg.split(',')[2]
     if msg == DM:
+      print(f'{prev_key} DISCONNECTED')
       data = data.pop(prev_key)
     else:
       prev_key = update_data(msg, data)

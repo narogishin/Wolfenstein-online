@@ -23,6 +23,7 @@ class Client:
         if player not in self.object_handler.npcs:
           self.game.object_handler.npc_list.append(NPC(self.game))
           self.game.object_handler.npcs[player] = NPC(self.game)
+          print(self.game.object_handler.npcs)
         else:
           self.game.object_handler.npcs[player].x = x
           self.game.object_handler.npcs[player].y = y
@@ -42,5 +43,6 @@ class Client:
       return msg
 
   def disconnect(self):
+    # print(self.game.player.name)
+    # self.game.object_handler.npcs.pop(self.game.player.name)
     self.send_msg(pickle.dumps(f'{DM}:{self.game.player.name}'))
-    self.game.object_handler.npcs.pop(self.game.player.name)
