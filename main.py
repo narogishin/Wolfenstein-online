@@ -7,6 +7,7 @@ from player import Player
 from ray_casting import RayCasting
 from object_handler import ObjectHandler
 from object_renderer import ObjectRenderer
+from sprite_object import SpriteObject
 from sound import Sound
 from weapon import Weapon
 
@@ -27,6 +28,7 @@ class Game:
    self.map = Map(self)
    self.player = Player(self)
    self.object_renderer = ObjectRenderer(self)
+   self.sprite_object = SpriteObject(self)
    self.ray_cast = RayCasting(self)
    self.object_handler = ObjectHandler(self)
    self.weapon = Weapon(self)

@@ -13,8 +13,11 @@ class NPC(AnimatedSprite):
     self.pain_images = self.get_images(self.path + '/pain')
     self.walk_images = self.get_images(self.path + '/walk')
 
+    self.game = game
+    self.npcs = self.game.object_handler.npcs
+
     self.attack_dist = randint(3, 6)
-    self.speed = 0.03
+    self.speed = 0.06
     self.size = 10
     self.health = 100
     self.attack_damage = 10
@@ -43,7 +46,7 @@ class NPC(AnimatedSprite):
 
   def mouvement(self): #, new_pos: tuple, new_angle: float):
     player_name = self.game.player.name
-    new_x, new_y = self.game.object_handler.npcs[player_name].pos
+    new_x, new_y = self.npcs[player_name].pos
     # dx, dy = new_x - self.x, new_y - self.y
     angle = math.atan2(new_y - self.y + 0.5, new_x - self.x + 0.5)
     dx, dy = math.cos(angle) * self.speed, math.sin(angle) * self.speed

@@ -6,7 +6,7 @@ class ObjectRenderer:
     self.game = game
     self.screen = game.screen
     self.wall_textures = self.load_wall_textures()
-    self.sky_image = self.get_texture("ressources/textures/sky.png", (WIDTH, HALF_HEIGHT))
+    self.sky_image = self.get_texture("resources/textures/sky.png", (WIDTH, HALF_HEIGHT))
     self.sky_offset = 0
 
   def draw(self):
@@ -34,5 +34,5 @@ class ObjectRenderer:
     return pg.transform.scale(texture, res)
   
   def load_wall_textures(self):
-    return {i: self.get_texture(f"ressources/textures/wall tile {i}.png") 
+    return {i: self.get_texture(f"resources/textures/wall tile {i}.png") 
             for i in range(1, 11)}

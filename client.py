@@ -27,7 +27,7 @@ class Client:
         else:
           # self.game.object_handler.npcs[player].x = float(x)
           # self.game.object_handler.npcs[player].y = float(y)
-          self.game.object_handler.npcs[player].pos = (float(x), float(y))
+          self.game.object_handler.npcs[player].pos = float(x), float(y)
           # self.game.object_handler.npcs[player].mouvement((float(x), float(y)), float(angle))
           self.game.object_handler.npcs[player].angle = float(angle) 
           # # could change to float later
