@@ -5,8 +5,8 @@ import pygame as pg
 
 class NPC(AnimatedSprite):
   def __init__(self, game, path='ressources/sprites/npc/soldier/0.png', pos=(10.5, 5.5), scale=0.6, shift=0.36,
-                animation_time=120):
-    super().__init__(game, path, pos, scale, shift, animation_time)
+                animation_time=120, is_player=True):
+    super().__init__(game, path, pos, scale, shift, animation_time, is_player)
     self.attack_images = self.get_images(self.path + '/attack')
     self.death_images = self.get_images(self.path + '/death')
     self.idle_images = self.get_images(self.path + '/idle')
@@ -27,6 +27,7 @@ class NPC(AnimatedSprite):
     self.check_animation_time()
     self.get_sprite()
     self.run_logic()
+    self.mouvement()
     # self.draw_ray_cast()
 
   def check_wall(self, x, y):
@@ -40,7 +41,7 @@ class NPC(AnimatedSprite):
     if self.check_wall(int(self.x), int(self.y+dy*self.size)):
       self.y += dy
 
-  def mouvement(self, new_pos: tuple, new_angle: float):
+  def mouvement(self): #, new_pos: tuple, new_angle: float):
     new_x, new_y = self.game.player.map_position
     # dx, dy = new_x - self.x, new_y - self.y
     angle = math.atan2(new_y - self.y + 0.5, new_x - self.x + 0.5)

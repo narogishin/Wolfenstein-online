@@ -23,10 +23,11 @@ class Client:
         if player not in self.object_handler.npcs:
           self.game.object_handler.npc_list.append(NPC(self.game))
           self.game.object_handler.npcs[player] = NPC(self.game)
-          print(self.game.object_handler.npcs)
+          print(f'{player} is connected as {self.game.object_handler.npcs[player]}')
         else:
-          self.game.object_handler.npcs[player].x = float(x)
-          self.game.object_handler.npcs[player].y = float(y)
+          # self.game.object_handler.npcs[player].x = float(x)
+          # self.game.object_handler.npcs[player].y = float(y)
+          self.game.object_handler.npcs[player].pos = (float(x), float(y))
           # self.game.object_handler.npcs[player].mouvement((float(x), float(y)), float(angle))
           self.game.object_handler.npcs[player].angle = float(angle) 
           # # could change to float later
