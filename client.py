@@ -25,13 +25,7 @@ class Client:
           self.game.object_handler.npcs[player] = f'{x},{y},{player},{angle}'
           print(f'{player} is connected as {self.game.object_handler.npcs[player]}')
         else:
-          # self.game.object_handler.npcs[player].x = float(x)
-          # self.game.object_handler.npcs[player].y = float(y)
           self.game.object_handler.npcs[player] = f'{x},{y},{player},{angle}'
-          # self.game.object_handler.npcs[player].mouvement((float(x), float(y)), float(angle))
-          # self.game.object_handler.npcs[player].angle = float(angle) 
-          # # # could change to float later
-          # self.game.object_handler.npcs[player].update()
           
   def send_msg(self, msg: bytes):
     msg += b' ' * (HEADER - len(msg))

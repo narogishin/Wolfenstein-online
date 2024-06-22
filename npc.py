@@ -31,14 +31,11 @@ class NPC(AnimatedSprite):
     self.get_sprite()
     self.run_logic()
     self.mouvement()
-    # self.draw_ray_cast()
 
   def check_wall(self, x, y):
     return (x, y) not in self.game.map.world_map
   
   def check_wall_collision(self, dx, dy):
-    # what is the usage of this scale ? should I really be interested in this ?
-    # scale = PLAYER_SIZE_SCALE / self.game.dt
     if self.check_wall(int(self.x+dx*self.size), int(self.y)):
       self.x += dx
     if self.check_wall(int(self.x), int(self.y+dy*self.size)):
@@ -68,9 +65,7 @@ class NPC(AnimatedSprite):
         if self.game.global_trigger and self.frame_counter < len(self.death_images) - 1:
           self.death_images.rotate(-1)
           self.image = self.death_images[0]
-          self.frame_counter += 1
-          # we could add here somthing to stop the player's mouvement because he is dead
-          # self.game.object_handler.npcs.pop(self.game.player.name) 
+          self.frame_counter += 1 
 
   def check_hit_in_npc(self):
     if self.game.player.shot and self.ray_cast_value and HALF_WIDTH - self.sprite_half_width < self.screen_x < HALF_WIDTH + self.sprite_half_width:
