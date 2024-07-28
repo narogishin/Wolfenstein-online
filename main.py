@@ -58,7 +58,7 @@ class Game:
     keys = pg.key.get_pressed()
     for event in pg.event.get():
       if event.type == pg.QUIT or keys[pg.K_ESCAPE]:
-        self.client.disconnect()
+        # self.client.disconnect()
         pg.quit()
         sys.exit()
       elif event.type == self.global_event:

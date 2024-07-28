@@ -1,6 +1,6 @@
 import socket, pickle
 
-SERVER_IP = socket.gethostbyname(socket.gethostname())
+SERVER_IP = "192.168.1.155" # socket.gethostbyname(socket.gethostname())
 PORT = 12345
 HEADER= 128*2
 FORMAT = 'utf-8'

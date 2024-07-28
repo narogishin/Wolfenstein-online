@@ -9,7 +9,7 @@ class Client:
     self.get_connected()
 
   def get_connected(self):
-    self.client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    self.client = "192.168.1.155" # socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
   def update(self):
     self.send_coordinates()
@@ -36,7 +36,8 @@ class Client:
     self.send_msg(pickle.dumps(self.data))
 
   def recv_message(self) -> dict:
-    msg = pickle.loads(self.client.recvfrom(HEADER)[0])
+    msg, _ = self.client.recvfrom(HEADER)
+    msg = pickle.loads(msg)
     if msg:
       return msg
 
